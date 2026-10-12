@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORMVIXA - Photo & Signature Resizer</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f3f6fc;
+  color: #172033;
+}
+
+header {
+  background: #101b36;
+  color: white;
+  padding: 22px;
+  text-align: center;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.logo span {
+  color: #82a0ff;
+}
+
+header p {
+  margin-top: 7px;
+  color: #d6def7;
+  font-size: 14px;
+}
+
+.container {
+  width: 92%;
+  max-width: 950px;
+  margin: 30px auto;
+}
+
+.intro {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.intro h1 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.intro p {
+  color: #667085;
+  line-height: 1.6;
+}
+
+.tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 14px;
+  border: 1px solid #dce3f0;
+  background: white;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  background: #3157d5;
+  color: white;
+}
+
+.card {
+  background: white;
+  border: 1px solid #e0e6f0;
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 20px #15264a08;
+}
+
+.card h2 {
+  font-size: 19px;
+  margin-bottom: 18px;
+}
+
+.upload {
+  border: 2px dashed #aab9d5;
+  background: #f9fbff;
+  border-radius: 12px;
+  text-align: center;
+  padding: 28px 15px;
+  cursor: pointer;
+}
+
+.upload strong {
+  display: block;
+  margin: 10px 0;
+}
+
+.upload p {
+  color: #667085;
+  font-size: 13px;
+}
+
+#fileInput {
+  display: none;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.field label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d8dfeb;
+  border-radius: 9px;
+  font-size: 15px;
+  background: white;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.note {
+  margin-top: 12px;
+  font-size: 12px;
+  color: #667085;
+  line-height: 1.6;
+}
+
+.btn {
+  width: 100%;
+  border: none;
+  background: #3157d5;
+  color: white;
+  padding: 14px;
+  border-radius: 10px;
+  margin-top: 18px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.secondary {
+  background: #eaf0ff;
+  color: #3157d5;
+  margin-top: 10px;
+}
+
+.preview {
+  min-height: 240px;
+  padding: 15px;
+  border: 1px solid #e0e6f0;
+  border-radius: 12px;
+  background: #fafcff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.preview img {
+  max-width: 100%;
+  max-height: 350px;
+  object-fit: contain;
+}
+
+.empty {
+  color: #667085;
+  text-align: center;
+  font-size: 14px;
+}
+
+.info {
+  color: #667085;
+  font-size: 13px;
+  line-height: 1.8;
+  margin-top: 12px;
+  overflow-wrap: anywhere;
+}
+
+#status {
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
+.error {
+  color: #b42318;
+}
+
+.success {
+  color: #167647;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  font-size: 12px;
+  color: #667085;
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 94%;
+    margin-top: 22px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .intro h1 {
+    font-size: 25px;
+  }
+
+  .fields {
+    gap: 12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">FORM<span>VIXA</span></div>
+  <p>Photo & Signature Resizer</p>
+</header>
+
+<main class="container">
+
+  <section class="intro">
+    <h1>Resize Photo & Signature</h1>
+    <p>Resize your image to the required pixel dimensions and file size.</p>
+  </section>
+
+  <div class="tabs">
+    <button id="photoTab" class="active" type="button">
+      Photo Resize
+    </button>
+    <button id="signatureTab" type="button">
+      Signature Resize
+    </button>
+  </div>
+
+  <section class="card">
+    <h2>1. Upload Your Image</h2>
+
+    <label for="fileInput" class="upload">
+      <div style="font-size:30px">↑</div>
+      <strong>Choose Photo or Signature</strong>
+      <p>JPG, PNG or WebP · Maximum 20 MB</p>
+    </label>
+
+    <input
+      type="file"
+      id="fileInput"
+      accept="image/jpeg,image/png,image/webp"
+    >
+
+    <div class="info" id="sourceInfo">
+      No image selected.
+    </div>
+
+    <h2 style="margin-top:25px">2. Resize Settings</h2>
+
+    <div class="fields">
+      <div class="field">
+        <label for="width">Width (Pixels)</label>
+        <input id="width" type="number" min="1" max="10000" value="200">
+      </div>
+
+      <div class="field">
+        <label for="height">Height (Pixels)</label>
+        <input id="height" type="number" min="1" max="10000" value="230">
+      </div>
+
+      <div class="field">
+        <label for="targetKB">Target File Size (KB)</label>
+        <input id="targetKB" type="number" min="1" max="20000" value="50">
+      </div>
+
+      <div class="field">
+        <label for="format">Output Format</label>
+        <select id="format">
+          <option value="image/jpeg">JPG</option>
+          <option value="image/png">PNG</option>
+          <option value="image/webp">WebP</option>
+        </select>
+      </div>
+    </div>
+
+    <label class="checkbox">
+      <input type="checkbox" id="keepRatio">
+      Maintain aspect ratio
+    </label>
+
+    <p class="note">
+      File size depends on image content and format. Exact target KB is
+      not guaranteed for every image. PNG is lossless and may exceed
+      the requested size.
+    </p>
+
+    <button class="btn" id="resizeBtn" disabled>
+      Resize Image
+    </button>
+
+    <div id="status" aria-live="polite"></div>
+  </section>
+
+  <section class="card">
+    <h2>3. Preview Resized Image</h2>
+
+    <div class="preview" id="preview">
+      <div class="empty">Your resized image will appear here.</div>
+    </div>
+
+    <div class="info" id="resultInfo">
+      No resized image yet.
+    </div>
+
+    <button class="btn" id="downloadBtn" disabled>
+      Download Image
+    </button>
+
+    <button class="btn secondary" id="resetBtn">
+      Reset
+    </button>
+  </section>
+
+</main>
+
+<footer>
+  FORMVIXA · Photo & Signature Resize Only
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+
+let mode = "photo";
+let originalImage = null;
+let resultURL = null;
+let resultBlob = null;
+let originalURL = null;
+
+function setStatus(message, type = "") {
+  $("status").textContent = message;
+  $("status").className = type;
+}
+
+function formatBytes(bytes) {
+  return bytes < 1024
+    ? bytes + " B"
+    : (bytes / 1024).toFixed(2) + " KB";
+}
+
+function clearResult() {
+  if (resultURL) URL.revokeObjectURL(resultURL);
+
+  resultURL = null;
+  resultBlob = null;
+
+  $("downloadBtn").disabled = true;
+  $("resultInfo").textContent = "No resized image yet.";
+}
+
+function setMode(nextMode) {
+  mode = nextMode;
+
+  $("photoTab").classList.toggle("active", mode === "photo");
+  $("signatureTab").classList.toggle("active", mode === "signature");
+
+  if (mode === "photo") {
+    $("width").value = 200;
+    $("height").value = 230;
+    $("targetKB").value = 50;
+  } else {
+    $("width").value = 300;
+    $("height").value = 100;
+    $("targetKB").value = 20;
+  }
+
+  clearResult();
+  setStatus("");
+}
+
+$("photoTab").addEventListener("click", () => setMode("photo"));
+
+$("signatureTab").addEventListener("click", () => {
+  setMode("signature");
+});
+
+$("fileInput").addEventListener("change", event => {
+  const file = event.target.files[0];
+
+  clearResult();
+  originalImage = null;
+
+  if (!file) return;
+
+  const allowed = [
+    "image/jpeg",
+    "image/png",
+    "image/webp"
+  ];
+
+  if (!allowed.includes(file.type)) {
+    setStatus("Please select a JPG, PNG or WebP image.", "error");
+    return;
+  }
+
+  if (file.size > 20 * 1024 * 1024) {
+    setStatus("Image must be smaller than 20 MB.", "error");
+    return;
+  }
+
+  if (originalURL) URL.revokeObjectURL(originalURL);
+  originalURL = URL.createObjectURL(file);
+
+  const image = new Image();
+
+  image.onload = () => {
+    originalImage = image;
+
+    $("sourceInfo").textContent =
+      "Original: " + image.naturalWidth + " × " +
+      image.naturalHeight + " px · " + formatBytes(file.size);
+
+    $("preview").replaceChildren();
+
+    const previewImage = document.createElement("img");
+    previewImage.src = originalURL;
+    previewImage.alt = "Original image preview";
+
+    $("preview").appendChild(previewImage);
+    $("resizeBtn").disabled = false;
+
+    setStatus("Image loaded successfully.", "success");
+  };
+
+  image.onerror = () => {
+    setStatus("Could not open this image. Try another image.", "error");
+  };
+
+  image.src = originalURL;
+});
+
+function canvasToBlob(canvas, type, quality) {
+  return new Promise(resolve => {
+    canvas.toBlob(resolve, type, quality);
+  });
+}
+
+$("resizeBtn").addEventListener("click", async () => {
+  if (!originalImage) return;
+
+  const width = Number($("width").value);
+  const height = Number($("height").value);
+  const targetKB = Number($("targetKB").value);
+  const format = $("format").value;
+
+  if (
+    !Number.isInteger(width) ||
+    !Number.isInteger(height) ||
+    width < 1 || height < 1 ||
+    width > 10000 || height > 10000
+  ) {
+    setStatus("Enter valid width and height from 1 to 10000.", "error");
+    return;
+  }
+
+  if (!Number.isFinite(targetKB) || targetKB < 1 || targetKB > 20000) {
+    setStatus("Target size must be between 1 and 20000 KB.", "error");
+    return;
+  }
+
+  $("resizeBtn").disabled = true;
+  setStatus("Resizing image...");
+
+  try {
+    let outWidth = width;
+    let outHeight = height;
+
+    if ($("keepRatio").checked) {
+      const ratio = Math.min(
+        width / originalImage.naturalWidth,
+        height / originalImage.naturalHeight
+      );
+
+      outWidth = Math.max(
+        1, Math.round(originalImage.naturalWidth * ratio)
+      );
+
+      outHeight = Math.max(
+        1, Math.round(originalImage.naturalHeight * ratio)
+      );
+    }
+
+    const canvas = document.createElement("canvas");
+    canvas.width = outWidth;
+    canvas.height = outHeight;
+
+    const ctx = canvas.getContext("2d", {
+      alpha: format !== "image/jpeg"
+    });
+
+    if (format === "image/jpeg") {
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, outWidth, outHeight);
+    }
+
+    ctx.drawImage(originalImage, 0, 0, outWidth, outHeight);
+
+    const targetBytes = targetKB * 1024;
+    let blob;
+
+    if (format === "image/png") {
+      blob = await canvasToBlob(canvas, format);
+
+      if (!blob) throw new Error("Image export failed.");
+
+      if (blob.size > targetBytes) {
+        setStatus(
+          "PNG is " + formatBytes(blob.size) +
+          ". It exceeds the target size. Try JPG or WebP.",
+          "error"
+        );
+      }
+    } else {
+      let low = 0.05;
+      let high = 0.95;
+      let best = null;
+
+      for (let i = 0; i < 10; i++) {
+        const quality = (low + high) / 2;
+        const candidate = await canvasToBlob(
+          canvas, format, quality
+        );
+
+        if (!candidate) throw new Error("Image export failed.");
+
+        if (candidate.size <= targetBytes) {
+          best = candidate;
+          low = quality;
+        } else {
+          high = quality;
+        }
+      }
+
+      blob = best || await canvasToBlob(canvas, format, 0.05);
+
+      if (blob.size > targetBytes) {
+        setStatus(
+          "Could not reach " + targetKB +
+          " KB. Try smaller pixel dimensions.",
+          "error"
+        );
+      } else {
+        setStatus("Image resized successfully.", "success");
+      }
+    }
+
+    clearResult();
+
+    resultBlob = blob;
+    resultURL = URL.createObjectURL(blob);
+
+    const outputImage = document.createElement("img");
+    outputImage.src = resultURL;
+    outputImage.alt = "Resized image preview";
+
+    $("preview").replaceChildren(outputImage);
+
+    $("resultInfo").textContent =
+      "Final size: " + outWidth + " × " + outHeight +
+      " px · " + formatBytes(blob.size) +
+      " · " + format.split("/")[1].toUpperCase();
+
+    $("downloadBtn").disabled = false;
+
+    if (format === "image/png" && blob.size <= targetBytes) {
+      setStatus("Image resized successfully.", "success");
+    }
+  } catch (error) {
+    setStatus(
+      error.message || "Resize failed. Please try again.",
+      "error"
+    );
+  } finally {
+    $("resizeBtn").disabled = false;
+  }
+});
+
+$("downloadBtn").addEventListener("click", () => {
+  if (!resultBlob || !resultURL) return;
+
+  const extension = {
+    "image/jpeg": "jpg",
+    "image/png": "png",
+    "image/webp": "webp"
+  }[$("format").value];
+
+  const link = document.createElement("a");
+  link.href = resultURL;
+  link.download = "FORMVIXA-" + mode + "." + extension;
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+});
+
+$("resetBtn").addEventListener("click", () => {
+  $("fileInput").value = "";
+  $("resizeBtn").disabled = true;
+
+  originalImage = null;
+
+  if (originalURL) URL.revokeObjectURL(originalURL);
+  originalURL = null;
+
+  clearResult();
+
+  $("sourceInfo").textContent = "No image selected.";
+  $("preview").innerHTML =
+    '<div class="empty">Your resized image will appear here.</div>';
+
+  setMode("photo");
+  setStatus("");
+});
+</script>
+
+</body>
+</html>
