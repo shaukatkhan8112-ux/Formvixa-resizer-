@@ -1,62 +1,56 @@
-HTML
-
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3157d5">
 <title>FORMVIXA - Photo & Signature Resizer</title>
-<meta name="description" content="Resize photos and signatures to your required pixel dimensions and KB. Crop, compress and download images easily with FORMVIXA.">
+<meta name="description" content="Resize, crop, edit and compress photos and signatures by pixels and KB with FORMVIXA.">
 <style>
 *{box-sizing:border-box}
-:root{--blue:#3157d5;--bg:#f3f6fc;--text:#202938;--muted:#687385}
+:root{--blue:#3157d5;--bg:#f2f5fc;--text:#202938;--muted:#687385;--green:#16834a}
 body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
-header{background:#fff;padding:22px 16px;text-align:center;border-bottom:1px solid #e4e8f0}
-header h1{margin:0;color:var(--blue);font-size:30px}
-header p{margin:8px 0 0;color:var(--muted)}
-main{max-width:850px;margin:24px auto;padding:0 14px}
-.intro{line-height:1.6;color:var(--muted);margin-bottom:20px}
-.tabs{display:flex;gap:10px;margin-bottom:22px}
-.tab{flex:1;padding:14px 8px;border:1px solid #dce2ed;border-radius:15px;background:white;font-weight:700;font-size:16px;cursor:pointer}
-.tab.active{background:var(--blue);color:white;border-color:var(--blue)}
-.card{background:#fff;border:1px solid #e0e6ef;border-radius:24px;padding:22px;margin-bottom:22px;box-shadow:0 5px 24px #20305008}
-h2{font-size:22px;margin:0 0 18px}
-h3{font-size:18px;margin:0 0 12px}
-.upload-box{border:2px dashed #bac5d6;border-radius:18px;min-height:155px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 14px;gap:10px;background:#fbfcff;cursor:pointer;position:relative}
-.upload-box:active{background:#f0f4ff}
+header{text-align:center;background:#fff;padding:23px 14px;border-bottom:1px solid #e3e8f0}
+header h1{color:var(--blue);font-size:32px;margin:0}
+header p{color:var(--muted);margin:7px 0 0}
+main{max-width:850px;margin:22px auto;padding:0 13px}
+.intro{line-height:1.7;color:var(--muted)}
+.tabs{display:flex;gap:10px;margin:20px 0}
+.tab{flex:1;padding:14px 7px;border:1px solid #dbe1eb;border-radius:14px;background:white;font-size:16px;font-weight:bold;cursor:pointer}
+.tab.active,.btn.primary{background:var(--blue);color:white;border-color:var(--blue)}
+.card{background:#fff;border:1px solid #e0e6ef;border-radius:22px;padding:21px;margin-bottom:20px;box-shadow:0 4px 20px #1c2c5007}
+h2{font-size:22px;margin:0 0 17px}
+h3{font-size:18px;margin:24px 0 12px}
+.note{font-size:13px;line-height:1.65;color:var(--muted)}
+.upload-box{display:flex;min-height:155px;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px;padding:20px;border:2px dashed #bac5d6;border-radius:17px;background:#fbfcff;cursor:pointer}
+.upload-box:hover{border-color:var(--blue);background:#f2f5ff}
 .upload-icon{font-size:36px;color:var(--blue)}
-.upload-box strong{font-size:18px}
-.upload-box span{font-size:14px;color:var(--muted);overflow-wrap:anywhere}
-.file-input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
-.file-info{font-size:13px;color:var(--muted);overflow-wrap:anywhere;margin-top:12px;line-height:1.6}
-.settings{display:grid;grid-template-columns:1fr 1fr;gap:16px 14px;margin-top:22px}
-.field label{display:block;font-weight:700;margin-bottom:8px;font-size:15px}
-.field input,.field select{width:100%;height:52px;border:1px solid #dce1e8;border-radius:14px;padding:0 14px;font-size:17px;background:white;color:var(--text);min-width:0}
-.field input:focus,.field select:focus{outline:2px solid #a9bbff;border-color:var(--blue)}
-.check-row{display:flex;align-items:flex-start;gap:10px;margin-top:18px;line-height:1.5;color:#586477}
-.check-row input{width:19px;height:19px;flex-shrink:0;margin-top:2px}
-.note{font-size:13px;line-height:1.6;color:var(--muted);margin-top:12px}
-.btn{width:100%;border:0;border-radius:14px;padding:16px 12px;background:var(--blue);color:white;font-size:17px;font-weight:700;cursor:pointer;margin-top:22px}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.btn.secondary{background:#e9efff;color:var(--blue);margin-top:10px}
-.preview-wrap{margin-top:20px;text-align:center}
-.preview-image{display:block;max-width:100%;max-height:360px;object-fit:contain;margin:12px auto;border:1px solid #e1e6ef;border-radius:12px;background:#f7f8fa}
-#cropCanvas{display:block;max-width:100%;max-height:430px;width:auto;height:auto;margin:12px auto;touch-action:none;border:1px solid #dbe2ee;border-radius:8px;cursor:crosshair;background:#f7f8fa}
-.crop-controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-.crop-controls button{flex:1;min-width:125px;margin:0;padding:12px}
-.status{padding:12px;border-radius:12px;background:#f1f5ff;color:#334b8e;line-height:1.5;margin-top:15px;overflow-wrap:anywhere}
+.upload-box strong{font-size:18px;overflow-wrap:anywhere}
+.upload-box span:last-child{font-size:14px;color:var(--muted)}
+.file-input{position:absolute;width:1px;height:1px;opacity:0}
+.success{display:flex;align-items:center;gap:8px;color:var(--green);font-weight:bold;margin-top:13px}
+.tick{background:var(--green);color:white;border-radius:50%;width:25px;height:25px;display:inline-flex;align-items:center;justify-content:center}
+.file-info{font-size:13px;color:var(--muted);line-height:1.65;margin-top:10px;overflow-wrap:anywhere}
+.settings{display:grid;grid-template-columns:1fr 1fr;gap:16px 13px}
+.field label{display:block;font-size:14px;font-weight:bold;margin-bottom:8px}
+.field input:not([type=range]),.field select{width:100%;min-width:0;height:51px;border:1px solid #dce2ea;border-radius:13px;padding:0 12px;background:white;color:var(--text);font-size:16px}
+.field input[type=range]{width:100%;accent-color:var(--blue);margin:7px 0}
+.field input:focus,.field select:focus{outline:2px solid #afc0ff}
+.slider-value{float:right;color:var(--blue)}
+.check-row{display:flex;gap:10px;align-items:flex-start;line-height:1.5;margin-top:17px;color:#536074}
+.check-row input{width:18px;height:18px;flex-shrink:0;margin-top:2px}
+.btn{display:block;width:100%;padding:15px 12px;border:0;border-radius:13px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:17px}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.primary{background:var(--blue);color:#fff}
+.secondary{background:#eaf0ff;color:var(--blue)}
+.crop-canvas{display:block;max-width:100%;height:auto;margin:12px auto;border:1px solid #dce2ed;border-radius:8px;touch-action:none;cursor:crosshair}
+.crop-actions{display:flex;gap:10px}
+.crop-actions .btn{flex:1}
+.preview-image{display:block;max-width:100%;max-height:400px;object-fit:contain;margin:15px auto;border-radius:12px;border:1px solid #e1e6ef;background:#f7f8fa}
+.status{padding:13px;border-radius:12px;background:#f0f4ff;color:#334b8e;margin-top:15px;line-height:1.5;overflow-wrap:anywhere}
 .hidden{display:none!important}
-footer{text-align:center;padding:15px 20px 30px;color:var(--muted);font-size:13px}
-@media(max-width:480px){
-main{margin:17px auto;padding:0 11px}
-.card{padding:17px;border-radius:20px}
-h2{font-size:21px}
-.settings{gap:15px 10px}
-.field label{font-size:14px}
-.field input,.field select{padding:0 10px;font-size:16px}
-.tab{font-size:14px;padding:13px 5px}
-}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:15px 12px 28px}
+@media(max-width:480px){main{padding:0 10px}.card{padding:16px;border-radius:18px}h2{font-size:21px}.tab{font-size:14px}.settings{gap:14px 9px}.field input:not([type=range]),.field select{padding:0 9px;font-size:15px}}
 </style>
 </head>
 <body>
@@ -67,38 +61,70 @@ h2{font-size:21px}
 
 <main>
   <p class="intro">
-    अपनी फोटो या सिग्नेचर को मनचाहे Pixel और KB में Resize करें।
-    फोटो Crop करें और तैयार फ़ाइल डाउनलोड करें। आपकी इमेज इसी ब्राउज़र में प्रोसेस होती है।
+    Resize, crop and improve your photo or signature. Set the required pixel
+    dimensions and file size, then download your image. Processing happens locally
+    in your browser.
   </p>
 
-  <div class="tabs" role="group" aria-label="Choose image type">
+  <div class="tabs">
     <button class="tab active" id="photoTab" type="button">Photo Resize</button>
     <button class="tab" id="signatureTab" type="button">Signature Resize</button>
   </div>
 
   <section class="card">
     <h2 id="uploadHeading">1. Upload Photo</h2>
-
-    <label class="upload-box" for="imageInput" id="uploadBox">
+    <label class="upload-box" for="imageInput">
       <input class="file-input" id="imageInput" type="file" accept="image/jpeg,image/png,image/webp">
-      <span class="upload-icon" aria-hidden="true" id="uploadIcon">⇧</span>
-      <strong id="uploadTitle">फोटो चुनने के लिए यहाँ टैप करें</strong>
-      <span id="uploadSub">JPG, PNG या WebP · अधिकतम 20 MB</span>
+      <span class="upload-icon" id="uploadIcon">⇧</span>
+      <strong id="uploadTitle">Tap here to upload your photo</strong>
+      <span>JPG, PNG or WebP · Maximum 20 MB</span>
     </label>
-    <div class="file-info" id="fileInfo">अभी कोई इमेज नहीं चुनी गई है।</div>
+    <div id="uploadSuccess" class="success hidden">
+      <span class="tick">✓</span><span id="successText">Image uploaded successfully</span>
+    </div>
+    <div id="fileInfo" class="file-info">No image selected yet.</div>
 
     <div id="cropSection" class="hidden">
-      <h3 style="margin-top:24px">3. Crop Photo</h3>
-      <p class="note">इमेज पर उंगली या माउस से खींचकर Crop Area चुनें। फिर “Apply Crop” दबाएँ।</p>
-      <canvas id="cropCanvas" aria-label="Image crop selection"></canvas>
-      <div class="crop-controls">
+      <h3>2. Crop Image</h3>
+      <p class="note">Drag your finger or mouse over the image to select the area you want to keep. Everything outside the selected area will be removed after you apply the crop.</p>
+      <canvas id="cropCanvas" class="crop-canvas"></canvas>
+      <div class="crop-actions">
         <button class="btn secondary" id="applyCrop" type="button">Apply Crop</button>
         <button class="btn secondary" id="resetCrop" type="button">Reset Crop</button>
       </div>
-      <div class="note">ध्यान दें: Crop करने से फोटो का चुना हुआ हिस्सा ही रखा जाएगा।</div>
+      <p id="cropInfo" class="note">Select a crop area on the image.</p>
     </div>
 
-    <h2 style="margin-top:28px">2. Resize Settings</h2>
+    <h3>3. Image Adjustments</h3>
+    <p class="note">Move the sliders to improve your image. The adjustments will be included in your downloaded image.</p>
+
+    <div class="field">
+      <label for="brightness">Brightness <span class="slider-value" id="brightnessValue">100%</span></label>
+      <input id="brightness" type="range" min="0" max="200" value="100">
+    </div>
+    <div class="field">
+      <label for="contrast">Contrast <span class="slider-value" id="contrastValue">100%</span></label>
+      <input id="contrast" type="range" min="0" max="200" value="100">
+    </div>
+    <div class="field">
+      <label for="saturation">Saturation <span class="slider-value" id="saturationValue">100%</span></label>
+      <input id="saturation" type="range" min="0" max="200" value="100">
+    </div>
+    <div class="field">
+      <label for="sharpness">Sharpness <span class="slider-value" id="sharpnessValue">0</span></label>
+      <input id="sharpness" type="range" min="0" max="3" value="0" step="1">
+    </div>
+    <div class="field">
+      <label for="blur">Blur <span class="slider-value" id="blurValue">0 px</span></label>
+      <input id="blur" type="range" min="0" max="5" value="0" step="0.5">
+    </div>
+    <label class="check-row">
+      <input id="grayscale" type="checkbox">
+      <span>Black & White (Grayscale)</span>
+    </label>
+    <button class="btn secondary" id="resetAdjustments" type="button">Reset Adjustments</button>
+
+    <h3>4. Resize Settings</h3>
     <div class="settings">
       <div class="field">
         <label for="widthInput">Width (pixels)</label>
@@ -124,36 +150,27 @@ h2{font-size:21px}
 
     <label class="check-row">
       <input id="aspectInput" type="checkbox">
-      <span>Keep original aspect ratio (फोटो को बिना खींचे dimensions के अंदर फिट करें)</span>
+      <span>Keep original aspect ratio (fit inside dimensions)</span>
     </label>
+    <p class="note">Target file size is a maximum target. Exact size can vary. PNG files may not reach the requested size because PNG is lossless.</p>
 
-    <label class="check-row">
-      <input id="cropToggle" type="checkbox">
-      <span>Crop Photo (पहले फोटो का हिस्सा चुनें)</span>
-    </label>
-
-    <p class="note">
-      Target KB अधिकतम आकार का लक्ष्य है। वास्तविक फ़ाइल का साइज़ इमेज और फ़ॉर्मेट के अनुसार बदल सकता है।
-      PNG lossless होता है, इसलिए वह हर बार माँगे गए KB तक छोटा नहीं हो सकता।
-    </p>
-
-    <button class="btn" id="resizeButton" type="button">Resize Image</button>
+    <button class="btn primary" id="resizeButton" type="button">Resize Image</button>
     <div id="status" class="status hidden" role="status" aria-live="polite"></div>
   </section>
 
   <section class="card">
-    <h2>4. Preview & Download</h2>
-    <div id="emptyPreview" class="note">Resize करने के बाद तैयार इमेज यहाँ दिखाई देगी।</div>
+    <h2>5. Preview & Download</h2>
+    <p id="emptyPreview" class="note">Your resized image will appear here.</p>
     <div id="resultSection" class="hidden">
       <img id="resultImage" class="preview-image" alt="Resized image preview">
       <div id="resultInfo" class="file-info"></div>
-      <button class="btn" id="downloadButton" type="button">Download Image</button>
-      <p class="note">Android पर फ़ाइल आम तौर पर Downloads में सेव होती है। वहाँ से आप उसे Gallery में देख सकते हैं। कुछ ब्राउज़र Save या Share का विकल्प भी देते हैं।</p>
+      <button class="btn primary" id="downloadButton" type="button">Download Image</button>
+      <p class="note">On most phones, the file is saved to Downloads. To save it to Gallery or Photos, use your phone's available save or share options.</p>
     </div>
   </section>
 </main>
 
-<footer>© <span id="year"></span> FORMVIXA · Simple, fast image resizing</footer>
+<footer>© <span id="year"></span> FORMVIXA · Photo & Signature Resizer</footer>
 
 <script>
 "use strict";
@@ -167,9 +184,9 @@ const state = {
   sourceWidth: 0,
   sourceHeight: 0,
   crop: null,
+  cropView: null,
   dragging: false,
   dragStart: null,
-  cropView: null,
   resultBlob: null,
   resultUrl: null,
   resultName: ""
@@ -181,434 +198,407 @@ function setStatus(message, error = false) {
   const el = $("status");
   el.textContent = message;
   el.classList.remove("hidden");
-  el.style.background = error ? "#fff0f0" : "#f1f5ff";
+  el.style.background = error ? "#fff0f0" : "#f0f4ff";
   el.style.color = error ? "#a32121" : "#334b8e";
 }
-
 function clearStatus() {
   $("status").classList.add("hidden");
 }
-
+function clearResult() {
+  if (state.resultUrl) URL.revokeObjectURL(state.resultUrl);
+  state.resultUrl = null;
+  state.resultBlob = null;
+  $("resultSection").classList.add("hidden");
+  $("emptyPreview").classList.remove("hidden");
+}
+function resetAllAdjustments() {
+  $("brightness").value = 100;
+  $("contrast").value = 100;
+  $("saturation").value = 100;
+  $("sharpness").value = 0;
+  $("blur").value = 0;
+  $("grayscale").checked = false;
+  updateLabels();
+  if (state.original && !$("cropSection").classList.contains("hidden")) drawCropCanvas();
+}
+function getAdjustments() {
+  return {
+    brightness: Number($("brightness").value),
+    contrast: Number($("contrast").value),
+    saturation: Number($("saturation").value),
+    sharpness: Number($("sharpness").value),
+    blur: Number($("blur").value),
+    grayscale: $("grayscale").checked
+  };
+}
+function updateLabels() {
+  const a = getAdjustments();
+  $("brightnessValue").textContent = a.brightness + "%";
+  $("contrastValue").textContent = a.contrast + "%";
+  $("saturationValue").textContent = a.saturation + "%";
+  $("sharpnessValue").textContent = a.sharpness;
+  $("blurValue").textContent = a.blur + " px";
+}
+function filterString() {
+  const a = getAdjustments();
+  return brightness(${a.brightness}%) contrast(${a.contrast}%) saturate(${a.saturation}%) grayscale(${a.grayscale ? 100 : 0}%) blur(${a.blur}px);
+}
 function updateMode(mode) {
   state.mode = mode;
   $("photoTab").classList.toggle("active", mode === "photo");
   $("signatureTab").classList.toggle("active", mode === "signature");
   $("uploadHeading").textContent = mode === "photo" ? "1. Upload Photo" : "1. Upload Signature";
-  $("uploadTitle").textContent = mode === "photo"
-    ? "फोटो चुनने के लिए यहाँ टैप करें"
-    : "सिग्नेचर चुनने के लिए यहाँ टैप करें";
-  $("uploadIcon").textContent = mode === "photo" ? "⇧" : "✍";
-  $("uploadSub").textContent = mode === "photo"
-    ? "JPG, PNG या WebP · अधिकतम 20 MB"
-    : "सिग्नेचर की JPG, PNG या WebP इमेज · अधिकतम 20 MB";
+  $("uploadTitle").textContent = mode === "photo" ? "Tap here to upload your photo" : "Tap here to upload your signature";
+  $("uploadIcon").textContent = mode === "photo" ? "⇧" : "✍️";
   $("imageInput").value = "";
-  state.original = null;
-  state.originalName = "";
-  state.crop = null;
-  state.resultBlob = null;
-  $("fileInfo").textContent = "अभी कोई इमेज नहीं चुनी गई है।";
-  $("cropToggle").checked = false;
+  $("uploadSuccess").classList.add("hidden");
+  $("fileInfo").textContent = "No image selected yet.";
   $("cropSection").classList.add("hidden");
-  $("resultSection").classList.add("hidden");
-  $("emptyPreview").classList.remove("hidden");
-  clearResultUrl();
+  state.original = null;
+  state.crop = null;
+  resetAllAdjustments();
+  clearResult();
   clearStatus();
 }
-
 $("photoTab").addEventListener("click", () => updateMode("photo"));
 $("signatureTab").addEventListener("click", () => updateMode("signature"));
-
-function clearResultUrl() {
-  if (state.resultUrl) URL.revokeObjectURL(state.resultUrl);
-  state.resultUrl = null;
-  state.resultBlob = null;
-}
-
-function formatKB(bytes) {
-  return (bytes / 1024).toFixed(1) + " KB";
-}
 
 $("imageInput").addEventListener("change", event => {
   const file = event.target.files && event.target.files[0];
   if (!file) return;
-
   clearStatus();
 
-  if (!file.type.startsWith("image/") ||
-      !["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
-    setStatus("कृपया JPG, PNG या WebP इमेज चुनें।", true);
+  if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+    setStatus("Please select a JPG, PNG or WebP image.", true);
     event.target.value = "";
     return;
   }
-
   if (file.size > 20 * 1024 * 1024) {
-    setStatus("फ़ाइल 20 MB से बड़ी है। कृपया छोटी इमेज चुनें।", true);
+    setStatus("The file exceeds 20 MB. Please select a smaller image.", true);
     event.target.value = "";
     return;
   }
 
   const reader = new FileReader();
-
-  reader.onerror = () => setStatus("फ़ाइल पढ़ी नहीं जा सकी। दूसरी इमेज चुनें।", true);
-
+  reader.onerror = () => setStatus("Could not read this file. Please try again.", true);
   reader.onload = () => {
     const img = new Image();
-
+    img.onerror = () => setStatus("Could not open this image. Try another file.", true);
     img.onload = () => {
       state.original = img;
       state.originalName = file.name;
       state.sourceWidth = img.naturalWidth;
       state.sourceHeight = img.naturalHeight;
-      state.crop = {
-        x: 0, y: 0, width: img.naturalWidth, height: img.naturalHeight
-      };
-
-      $("fileInfo").textContent =
-        "Selected: " + file.name + " · " +
-        img.naturalWidth + " × " + img.naturalHeight + " px · " +
-        formatKB(file.size);
+      state.crop = {x:0,y:0,width:img.naturalWidth,height:img.naturalHeight};
 
       $("widthInput").value = img.naturalWidth;
       $("heightInput").value = img.naturalHeight;
-      $("resultSection").classList.add("hidden");
-      $("emptyPreview").classList.remove("hidden");
-      clearResultUrl();
+      $("uploadSuccess").classList.remove("hidden");
+      $("successText").textContent = state.mode === "photo" ? "Photo uploaded successfully" : "Signature uploaded successfully";
+      $("fileInfo").textContent = Selected: ${file.name} · ${img.naturalWidth} × ${img.naturalHeight} px · ${(file.size/1024).toFixed(1)} KB;
 
-      if ($("cropToggle").checked) showCropper();
-      setStatus("इमेज अपलोड हो गई है। अब dimensions और KB चुनें।");
+      resetAllAdjustments();
+      clearResult();
+      $("cropSection").classList.remove("hidden");
+      drawCropCanvas();
+      setStatus("Upload complete. Adjust your image or select a crop area.");
     };
-
-    img.onerror = () => setStatus("इमेज खोली नहीं जा सकी। दूसरी इमेज चुनें।", true);
     img.src = reader.result;
   };
-
   reader.readAsDataURL(file);
 });
 
-$("cropToggle").addEventListener("change", () => {
-  if (!$("cropToggle").checked) {
-    $("cropSection").classList.add("hidden");
-    return;
-  }
-  if (!state.original) {
-    $("cropToggle").checked = false;
-    setStatus("पहले फोटो या सिग्नेचर अपलोड करें।", true);
-    return;
-  }
-  showCropper();
-});
-
-function showCropper() {
-  $("cropSection").classList.remove("hidden");
-  drawCropCanvas();
-}
-
 function drawCropCanvas() {
   if (!state.original) return;
-
   const canvas = $("cropCanvas");
-  const maxWidth = Math.min(620, $("cropSection").clientWidth - 8);
-  const maxHeight = 380;
-  const scale = Math.min(
-    maxWidth / state.sourceWidth,
-    maxHeight / state.sourceHeight,
-    1
-  );
-
-  const displayWidth = Math.max(1, Math.round(state.sourceWidth * scale));
-  const displayHeight = Math.max(1, Math.round(state.sourceHeight * scale));
-
-  canvas.width = displayWidth;
-  canvas.height = displayHeight;
-  canvas.style.width = displayWidth + "px";
-  canvas.style.height = displayHeight + "px";
-  state.cropView = {
-    scaleX: state.sourceWidth / displayWidth,
-    scaleY: state.sourceHeight / displayHeight
-  };
+  const maxW = Math.max(160, Math.min(620, $("cropSection").clientWidth - 10));
+  const maxH = 360;
+  const scale = Math.min(maxW/state.sourceWidth, maxH/state.sourceHeight, 1);
+  const w = Math.max(1, Math.round(state.sourceWidth*scale));
+  const h = Math.max(1, Math.round(state.sourceHeight*scale));
+  canvas.width = w;
+  canvas.height = h;
+  canvas.style.width = w + "px";
+  canvas.style.height = h + "px";
+  state.cropView = {sx:state.sourceWidth/w, sy:state.sourceHeight/h};
 
   const ctx = canvas.getContext("2d");
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(state.original, 0, 0, displayWidth, displayHeight);
-
-  if (!state.crop) return;
-
-  const c = state.crop;
-  const x = c.x / state.cropView.scaleX;
-  const y = c.y / state.cropView.scaleY;
-  const w = c.width / state.cropView.scaleX;
-  const h = c.height / state.cropView.scaleY;
-
+  ctx.clearRect(0,0,w,h);
   ctx.save();
-  ctx.fillStyle = "rgba(0,0,0,.48)";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.clearRect(x, y, w, h);
-  ctx.drawImage(
-    state.original,
-    c.x, c.y, c.width, c.height,
-    x, y, w, h
-  );
-  ctx.strokeStyle = "#ffffff";
-  ctx.lineWidth = 2;
-  ctx.setLineDash([6, 3]);
-  ctx.strokeRect(x, y, w, h);
+  ctx.filter = filterString();
+  ctx.drawImage(state.original,0,0,w,h);
   ctx.restore();
-}
 
-function canvasPoint(event) {
+  if (state.crop) {
+    const c = state.crop;
+    const x = c.x/state.cropView.sx, y = c.y/state.cropView.sy;
+    const cw = c.width/state.cropView.sx, ch = c.height/state.cropView.sy;
+    ctx.save();
+    ctx.fillStyle = "rgba(0,0,0,.55)";
+    ctx.fillRect(0,0,w,h);
+    ctx.clearRect(x,y,cw,ch);
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(x,y,cw,ch);
+    ctx.clip();
+    ctx.filter = filterString();
+    ctx.drawImage(state.original,0,0,w,h);
+    ctx.restore();
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
+    ctx.setLineDash([6,3]);
+    ctx.strokeRect(x,y,cw,ch);
+    ctx.restore();
+  }
+}
+function pointOnCanvas(event) {
   const rect = $("cropCanvas").getBoundingClientRect();
   return {
-    x: Math.max(0, Math.min(rect.width, event.clientX - rect.left)),
-    y: Math.max(0, Math.min(rect.height, event.clientY - rect.top))
+    x:Math.max(0,Math.min(rect.width,event.clientX-rect.left)),
+    y:Math.max(0,Math.min(rect.height,event.clientY-rect.top))
   };
 }
-
 $("cropCanvas").addEventListener("pointerdown", event => {
   if (!state.original || !state.cropView) return;
   event.preventDefault();
   state.dragging = true;
-  state.dragStart = canvasPoint(event);
-  state.crop = {
-    x: Math.round(state.dragStart.x * state.cropView.scaleX),
-    y: Math.round(state.dragStart.y * state.cropView.scaleY),
-    width: 1,
-    height: 1
-  };
+  state.dragStart = pointOnCanvas(event);
+  state.crop = {x:0,y:0,width:state.sourceWidth,height:state.sourceHeight};
   $("cropCanvas").setPointerCapture(event.pointerId);
-  drawCropCanvas();
 });
-
 $("cropCanvas").addEventListener("pointermove", event => {
   if (!state.dragging || !state.dragStart || !state.cropView) return;
-  const p = canvasPoint(event);
-  const left = Math.min(state.dragStart.x, p.x);
-  const top = Math.min(state.dragStart.y, p.y);
-  const right = Math.max(state.dragStart.x, p.x);
-  const bottom = Math.max(state.dragStart.y, p.y);
-
+  const p = pointOnCanvas(event);
+  const left = Math.min(state.dragStart.x,p.x);
+  const top = Math.min(state.dragStart.y,p.y);
+  const right = Math.max(state.dragStart.x,p.x);
+  const bottom = Math.max(state.dragStart.y,p.y);
   state.crop = {
-    x: Math.round(left * state.cropView.scaleX),
-    y: Math.round(top * state.cropView.scaleY),
-    width: Math.max(1, Math.round((right - left) * state.cropView.scaleX)),
-    height: Math.max(1, Math.round((bottom - top) * state.cropView.scaleY))
+    x:Math.round(left*state.cropView.sx),
+    y:Math.round(top*state.cropView.sy),
+    width:Math.max(1,Math.round((right-left)*state.cropView.sx)),
+    height:Math.max(1,Math.round((bottom-top)*state.cropView.sy))
   };
   drawCropCanvas();
 });
-
-function endCropDrag() {
-  state.dragging = false;
-  state.dragStart = null;
-}
-
-$("cropCanvas").addEventListener("pointerup", endCropDrag);
-$("cropCanvas").addEventListener("pointercancel", endCropDrag);
+function stopCropDrag(){state.dragging=false;state.dragStart=null;}
+$("cropCanvas").addEventListener("pointerup",stopCropDrag);
+$("cropCanvas").addEventListener("pointercancel",stopCropDrag);
 
 $("applyCrop").addEventListener("click", () => {
-  if (!state.crop || state.crop.width < 2 || state.crop.height < 2) {
-    setStatus("कृपया फोटो में एक बड़ा Crop Area चुनें।", true);
+  if (!state.original || !state.crop || state.crop.width < 2 || state.crop.height < 2) {
+    setStatus("Drag over the image to select a crop area first.",true);
     return;
   }
-  $("widthInput").value = state.crop.width;
-  $("heightInput").value = state.crop.height;
-  setStatus("Crop Area चुना गया है। अब Resize Image दबाएँ।");
+  const c = state.crop;
+  const canvas = document.createElement("canvas");
+  canvas.width = c.width;
+  canvas.height = c.height;
+  const ctx = canvas.getContext("2d");
+  ctx.filter = filterString();
+  ctx.drawImage(state.original,c.x,c.y,c.width,c.height,0,0,c.width,c.height);
+
+  canvas.toBlob(blob => {
+    if (!blob) {
+      setStatus("Could not apply crop. Please try again.",true);
+      return;
+    }
+    const url = URL.createObjectURL(blob);
+    const cropped = new Image();
+    cropped.onload = () => {
+      URL.revokeObjectURL(url);
+      state.original = cropped;
+      state.sourceWidth = c.width;
+      state.sourceHeight = c.height;
+      state.crop = {x:0,y:0,width:c.width,height:c.height};
+      $("widthInput").value = c.width;
+      $("heightInput").value = c.height;
+      clearResult();
+      drawCropCanvas();
+      $("cropInfo").textContent = Crop applied: ${c.width} × ${c.height} px. Only the selected area remains.;
+      setStatus("Crop applied successfully.");
+    };
+    cropped.onerror = () => {
+      URL.revokeObjectURL(url);
+      setStatus("Could not load the cropped image.",true);
+    };
+    cropped.src = url;
+  },"image/png");
 });
 
 $("resetCrop").addEventListener("click", () => {
   if (!state.original) return;
-  state.crop = {
-    x: 0, y: 0,
-    width: state.sourceWidth,
-    height: state.sourceHeight
-  };
+  state.crop = {x:0,y:0,width:state.sourceWidth,height:state.sourceHeight};
   drawCropCanvas();
-  setStatus("Crop Area रीसेट हो गया है।");
+  $("cropInfo").textContent = "Full current image selected.";
+  setStatus("Crop selection reset.");
 });
 
-function canvasToBlob(canvas, type, quality) {
-  return new Promise((resolve, reject) => {
-    canvas.toBlob(blob => {
-      if (blob) resolve(blob);
-      else reject(new Error("इमेज तैयार नहीं हो सकी।"));
-    }, type, quality);
+["brightness","contrast","saturation","sharpness","blur","grayscale"].forEach(id => {
+  $(id).addEventListener("input", () => {
+    updateLabels();
+    if (state.original) drawCropCanvas();
   });
-}
+});
+$("resetAdjustments").addEventListener("click", () => {
+  resetAllAdjustments();
+  setStatus("Adjustments reset to their default values.");
+});
 
 function makeOutputCanvas() {
-  const width = Number($("widthInput").value);
-  const height = Number($("heightInput").value);
-
+  let width = Number($("widthInput").value);
+  let height = Number($("heightInput").value);
   if (!Number.isInteger(width) || !Number.isInteger(height) ||
-      width < 1 || height < 1 || width > 10000 || height > 10000) {
-    throw new Error("Width और Height 1 से 10000 pixels के बीच रखें।");
+      width<1 || height<1 || width>10000 || height>10000) {
+    throw new Error("Width and height must be between 1 and 10000 pixels.");
   }
 
-  let source = state.crop || {
-    x: 0, y: 0, width: state.sourceWidth, height: state.sourceHeight
-  };
-
-  let outputWidth = width;
-  let outputHeight = height;
-
+  const c = state.crop || {x:0,y:0,width:state.sourceWidth,height:state.sourceHeight};
   if ($("aspectInput").checked) {
-    const scale = Math.min(width / source.width, height / source.height);
-    outputWidth = Math.max(1, Math.round(source.width * scale));
-    outputHeight = Math.max(1, Math.round(source.height * scale));
+    const scale = Math.min(width/c.width,height/c.height);
+    width = Math.max(1,Math.round(c.width*scale));
+    height = Math.max(1,Math.round(c.height*scale));
   }
 
   const canvas = document.createElement("canvas");
-  canvas.width = outputWidth;
-  canvas.height = outputHeight;
-
+  canvas.width = width;
+  canvas.height = height;
   const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("Canvas उपलब्ध नहीं है।");
+  if (!ctx) throw new Error("Your browser does not support image processing.");
 
-  if ($("formatInput").value === "image/jpeg") {
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, outputWidth, outputHeight);
+  const type = $("formatInput").value;
+  if (type === "image/jpeg") {
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0,0,width,height);
   }
-
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = "high";
-  ctx.drawImage(
-    state.original,
-    source.x, source.y, source.width, source.height,
-    0, 0, outputWidth, outputHeight
-  );
 
+  const a = getAdjustments();
+  ctx.save();
+  ctx.filter = brightness(${a.brightness}%) contrast(${a.contrast}%) saturate(${a.saturation}%) grayscale(${a.grayscale?100:0}%) blur(${a.blur}px);
+  
+ctx.drawImage(state.original,c.x,c.y,c.width,c.height,0,0,width,height);
+  ctx.restore();
+
+  // Apply a simple sharpening convolution when requested.
+  if (a.sharpness > 0) {
+    const imageData = ctx.getImageData(0,0,width,height);
+    const src = imageData.data;
+    const out = new Uint8ClampedArray(src);
+    const amount = a.sharpness * 0.35;
+
+    for (let y=1;y<height-1;y++) {
+      for (let x=1;x<width-1;x++) {
+        const i=(y*width+x)*4;
+        for (let ch=0;ch<3;ch++) {
+          const center=src[i+ch];
+          const neighbors=
+            src[i-4+ch]+src[i+4+ch]+
+            src[i-width*4+ch]+src[i+width*4+ch];
+          out[i+ch]=center+amount*(4*center-neighbors);
+        }
+      }
+    }
+    imageData.data.set(out);
+    ctx.putImageData(imageData,0,0);
+  }
   return canvas;
 }
 
-async function compressToTarget(canvas, type, targetKB) {
-  if (!Number.isFinite(targetKB) || targetKB < 1 || targetKB > 20480) {
-    throw new Error("Target KB 1 से 20480 के बीच रखें।");
+function toBlob(canvas,type,quality) {
+  return new Promise((resolve,reject) => {
+    canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error("Could not create output image.")),type,quality);
+  });
+}
+async function compressImage(canvas,type,targetKB) {
+  if (!Number.isFinite(targetKB)||targetKB<1||targetKB>20480) {
+    throw new Error("Target file size must be between 1 and 20480 KB.");
+  }
+  const target = targetKB*1024;
+  if (type==="image/png") {
+    const blob=await toBlob(canvas,type);
+    return
+{blob,reached:blob.size<=target};
   }
 
-  const targetBytes = targetKB * 1024;
-
-  if (type === "image/png") {
-    const blob = await canvasToBlob(canvas, type);
-    return {
-      blob,
-      reached: blob.size <= targetBytes
-    };
+  let low=0.04,high=0.96,best=null;
+  for(let i=0;i<12;i++){
+    const q=(low+high)/2;
+    const blob=await toBlob(canvas,type,q);
+    if(blob.size<=target && (!best||blob.size>best.size)) best=blob;
+    if(blob.size>target) high=q;
+    else low=q;
   }
-
-  let low = 0.05;
-  let high = 0.95;
-  let best = null;
-
-  for (let i = 0; i < 9; i++) {
-    const quality = (low + high) / 2;
-    const blob = await canvasToBlob(canvas, type, quality);
-
-    if (!best || (
-      blob.size <= targetBytes &&
-      (best.size > targetBytes || blob.size > best.size)
-    )) {
-      best = blob;
-    }
-
-    if (blob.size > targetBytes) {
-      high = quality;
-    } else {
-      low = quality;
-    }
-  }
-
-  if (!best || best.size > targetBytes) {
-    best = await canvasToBlob(canvas, type, 0.05);
-  }
-
-  return { blob: best, reached: best.size <= targetBytes };
+  if(!best) best=await toBlob(canvas,type,0.04);
+  return {blob:best,reached:best.size<=target};
 }
 
-$("resizeButton").addEventListener("click", async () => {
+$("resizeButton").addEventListener("click",async()=>{
   clearStatus();
-
-  if (!state.original) {
-    setStatus("पहले फोटो या सिग्नेचर अपलोड करें।", true);
+  if(!state.original){
+    setStatus("Please upload a photo or signature first.",true);
     return;
   }
 
-  $("resizeButton").disabled = true;
-  $("resizeButton").textContent = "Processing...";
+  $("resizeButton").disabled=true;
+  $("resizeButton").textContent="Processing...";
+  try{
+    const canvas=makeOutputCanvas();
+    const result=await compressImage(canvas,$("formatInput").value,Number($("sizeInput").value));
+    clearResult();
+    state.resultBlob=result.blob;
+    state.resultUrl=URL.createObjectURL(result.blob);
 
-  try {
-    const canvas = makeOutputCanvas();
-    const type = $("formatInput").value;
-    const targetKB = Number($("sizeInput").value);
-    const output = await compressToTarget(canvas, type, targetKB);
+    const ext=$("formatInput").value==="image/png"?"png":$("formatInput").value==="image/webp"?"webp":"jpg";
+    const base=(state.originalName||"formvixa").replace(/\.[^.]+$/,"");
+    state.resultName=base+"-resized."+ext;
 
-    clearResultUrl();
-    state.resultBlob = output.blob;
-    state.resultUrl = URL.createObjectURL(output.blob);
+    $("resultImage").src=state.resultUrl;
+    $("resultInfo").textContent=${canvas.width} × ${canvas.height} px · ${(result.blob.size/1024).toFixed(1)} KB · ${ext.toUpperCase()};
 
-    const extension = type === "image/png" ? "png"
-      : type === "image/webp" ? "webp" : "jpg";
-
-    const baseName = state.originalName.replace(/\.[^.]+$/, "") || "formvixa";
-    state.resultName = baseName + "-resized." + extension;
-
-    $("resultImage").src = state.resultUrl;
-    $("resultInfo").textContent =
-      canvas.width + " × " + canvas.height + " px · " +
-      formatKB(output.blob.size) + " · " + extension.toUpperCase();
-
-    $("resultSection").classList.remove("hidden");
+$("resultSection").classList.remove("hidden");
     $("emptyPreview").classList.add("hidden");
 
-    if (!output.reached) {
-      setStatus(
-        "इमेज तैयार है, लेकिन चुना गया KB लक्ष्य पूरा नहीं हो सका। " +
-        "कम dimensions चुनकर फिर कोशिश करें।"
-      );
-    } else {
-      setStatus("इमेज सफलतापूर्वक Resize हो गई है। अब Download Image दबाएँ।");
-    }
-  } catch (error) {
-    setStatus(error.message || "इमेज Resize नहीं हो सकी।", true);
-  } finally {
-    $("resizeButton").disabled = false;
-    $("resizeButton").textContent = "Resize Image";
+    setStatus(result.reached
+      ?"Image resized successfully. You can now download it."
+      :"Image created, but the target size could not be reached. Try smaller dimensions or another format.");
+  }catch(error){
+    setStatus(error.message||"Could not resize this image.",true);
+  }finally{
+    $("resizeButton").disabled=false;
+    $("resizeButton").textContent="Resize Image";
   }
 });
 
-$("downloadButton").addEventListener("click", async () => {
-  if (!state.resultBlob || !state.resultUrl) {
-    setStatus("पहले इमेज Resize करें।", true);
+$("downloadButton").addEventListener("click",async()=>{
+  if(!state.resultBlob||!state.resultUrl){
+    setStatus("Please resize the image first.",true);
     return;
   }
 
-  const file = new File([state.resultBlob], state.resultName, {
-    type: state.resultBlob.type
-  });
-
-  try {
-    if (navigator.canShare && navigator.share && navigator.canShare({files:[file]})) {
-      await navigator.share({
-        files: [file],
-        title: "FORMVIXA Resized Image"
-      });
-      setStatus("फ़ाइल शेयर करने के लिए तैयार है। अगर Gallery का विकल्प उपलब्ध हो तो उसे चुनें।");
+  const file=new File([state.resultBlob],state.resultName,{type:state.resultBlob.type});
+  try{
+    if(navigator.canShare&&navigator.share&&navigator.canShare({files:[file]})){
+      await navigator.share({files:[file],title:"FORMVIXA Resized Image"});
+      setStatus("Share menu opened. Choose a save option if available.");
       return;
     }
-  } catch (error) {
-    if (error.name === "AbortError") return;
+  }catch(error){
+    if(error.name==="AbortError") return;
   }
 
-  const link = document.createElement("a");
-  link.href = state.resultUrl;
-  link.download = state.resultName;
-  link.style.display = "none";
+  const link=document.createElement("a");
+  link.href=state.resultUrl;
+  link.download=state.resultName;
   document.body.appendChild(link);
   link.click();
   link.remove();
-
-  setStatus("डाउनलोड शुरू हो गया है। फ़ाइल अपने Downloads फ़ोल्डर में देखें।");
+  setStatus("Download started. Check your Downloads folder.");
 });
 
-window.addEventListener("beforeunload", () => {
-  if (state.resultUrl) URL.revokeObjectURL(state.resultUrl);
+window.addEventListener("beforeunload",()=>{
+  if(state.resultUrl) URL.revokeObjectURL(state.resultUrl);
 });
 </script>
 </body>
