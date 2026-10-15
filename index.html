@@ -1,605 +1,139 @@
-<!DOCTYPE html>
+!<doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#3157d5">
 <title>FORMVIXA - Photo & Signature Resizer</title>
-<meta name="description" content="Resize, crop, edit and compress photos and signatures by pixels and KB with FORMVIXA.">
+<meta name="description" content="Resize, crop, edit and compress photos and signatures by pixels and KB.">
 <style>
-*{box-sizing:border-box}
-:root{--blue:#3157d5;--bg:#f2f5fc;--text:#202938;--muted:#687385;--green:#16834a}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
-header{text-align:center;background:#fff;padding:23px 14px;border-bottom:1px solid #e3e8f0}
-header h1{color:var(--blue);font-size:32px;margin:0}
-header p{color:var(--muted);margin:7px 0 0}
-main{max-width:850px;margin:22px auto;padding:0 13px}
-.intro{line-height:1.7;color:var(--muted)}
-.tabs{display:flex;gap:10px;margin:20px 0}
-.tab{flex:1;padding:14px 7px;border:1px solid #dbe1eb;border-radius:14px;background:white;font-size:16px;font-weight:bold;cursor:pointer}
-.tab.active,.btn.primary{background:var(--blue);color:white;border-color:var(--blue)}
-.card{background:#fff;border:1px solid #e0e6ef;border-radius:22px;padding:21px;margin-bottom:20px;box-shadow:0 4px 20px #1c2c5007}
-h2{font-size:22px;margin:0 0 17px}
-h3{font-size:18px;margin:24px 0 12px}
-.note{font-size:13px;line-height:1.65;color:var(--muted)}
-.upload-box{display:flex;min-height:155px;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px;padding:20px;border:2px dashed #bac5d6;border-radius:17px;background:#fbfcff;cursor:pointer}
-.upload-box:hover{border-color:var(--blue);background:#f2f5ff}
-.upload-icon{font-size:36px;color:var(--blue)}
-.upload-box strong{font-size:18px;overflow-wrap:anywhere}
-.upload-box span:last-child{font-size:14px;color:var(--muted)}
-.file-input{position:absolute;width:1px;height:1px;opacity:0}
-.success{display:flex;align-items:center;gap:8px;color:var(--green);font-weight:bold;margin-top:13px}
-.tick{background:var(--green);color:white;border-radius:50%;width:25px;height:25px;display:inline-flex;align-items:center;justify-content:center}
-.file-info{font-size:13px;color:var(--muted);line-height:1.65;margin-top:10px;overflow-wrap:anywhere}
-.settings{display:grid;grid-template-columns:1fr 1fr;gap:16px 13px}
-.field label{display:block;font-size:14px;font-weight:bold;margin-bottom:8px}
-.field input:not([type=range]),.field select{width:100%;min-width:0;height:51px;border:1px solid #dce2ea;border-radius:13px;padding:0 12px;background:white;color:var(--text);font-size:16px}
-.field input[type=range]{width:100%;accent-color:var(--blue);margin:7px 0}
-.field input:focus,.field select:focus{outline:2px solid #afc0ff}
-.slider-value{float:right;color:var(--blue)}
-.check-row{display:flex;gap:10px;align-items:flex-start;line-height:1.5;margin-top:17px;color:#536074}
-.check-row input{width:18px;height:18px;flex-shrink:0;margin-top:2px}
-.btn{display:block;width:100%;padding:15px 12px;border:0;border-radius:13px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:17px}
-.btn:disabled{opacity:.55;cursor:not-allowed}
-.primary{background:var(--blue);color:#fff}
-.secondary{background:#eaf0ff;color:var(--blue)}
-.crop-canvas{display:block;max-width:100%;height:auto;margin:12px auto;border:1px solid #dce2ed;border-radius:8px;touch-action:none;cursor:crosshair}
-.crop-actions{display:flex;gap:10px}
-.crop-actions .btn{flex:1}
-.preview-image{display:block;max-width:100%;max-height:400px;object-fit:contain;margin:15px auto;border-radius:12px;border:1px solid #e1e6ef;background:#f7f8fa}
-.status{padding:13px;border-radius:12px;background:#f0f4ff;color:#334b8e;margin-top:15px;line-height:1.5;overflow-wrap:anywhere}
-.hidden{display:none!important}
-footer{text-align:center;color:var(--muted);font-size:13px;padding:15px 12px 28px}
-@media(max-width:480px){main{padding:0 10px}.card{padding:16px;border-radius:18px}h2{font-size:21px}.tab{font-size:14px}.settings{gap:14px 9px}.field input:not([type=range]),.field select{padding:0 9px;font-size:15px}}
+*{box-sizing:border-box}body{margin:0;background:#f1f5fc;color:#202938;font-family:Arial,sans-serif}
+header{text-align:center;background:#fff;padding:22px 12px}header h1{margin:0;color:#3157d5;font-size:32px}header p{margin:7px 0 0;color:#687385}
+main{max-width:760px;margin:20px auto;padding:0 12px}.intro,.note,.file-info{color:#687385;line-height:1.6}.intro{font-size:15px}
+.tabs{display:flex;gap:10px;margin:20px 0}.tab{flex:1;padding:14px 7px;border:1px solid #dce2eb;border-radius:13px;background:white;font-size:16px;font-weight:bold;cursor:pointer}.tab.active{background:#3157d5;color:white}
+.card{background:white;padding:20px;border:1px solid #e0e6ef;border-radius:19px;margin-bottom:20px;box-shadow:0 4px 20px #1c2c5007}h2{font-size:22px;margin:0 0 17px}h3{font-size:18px;margin:24px 0 12px}
+.upload{position:relative;min-height:155px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:20px;border:2px dashed #b9c5d7;border-radius:15px;background:#fafcff;cursor:pointer}.upload:hover{border-color:#3157d5;background:#f2f5ff}.upload .symbol{font-size:35px;color:#3157d5}.upload strong{font-size:17px}.upload small{font-size:13px;color:#687385}.upload input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.success{display:flex;align-items:center;gap:8px;color:#16834a;font-weight:bold;margin-top:12px}.tick{width:25px;height:25px;border-radius:50%;background:#16834a;color:white;display:inline-flex;align-items:center;justify-content:center}
+.file-info,.note{font-size:13px;overflow-wrap:anywhere}.settings{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field label{display:block;font-size:14px;font-weight:bold;margin-bottom:8px}.field input:not([type=range]),.field select{width:100%;height:49px;border:1px solid #dce2eb;border-radius:11px;padding:0 10px;background:white;font-size:16px;color:#202938}
+input[type=range]{width:100%;accent-color:#3157d5}.range-title{display:flex;justify-content:space-between;font-size:14px;font-weight:bold;margin:15px 0 4px}.range-title output{color:#3157d5}
+.check{display:flex;gap:9px;align-items:center;margin:15px 0;color:#526075;font-size:14px}.check input{width:18px;height:18px;flex-shrink:0}
+.btn{width:100%;border:0;border-radius:12px;padding:15px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:14px}.primary{background:#3157d5;color:white}.secondary{background:#eaf0ff;color:#3157d5}.btn:disabled{opacity:.6}
+.hidden{display:none!important}#cropCanvas{display:block;max-width:100%;height:auto;margin:12px auto;border:1px solid #dce2eb;border-radius:8px;touch-action:none;cursor:crosshair}.crop-actions{display:flex;gap:10px}.crop-actions .btn{flex:1}
+#previewImage{display:block;max-width:100%;max-height:400px;object-fit:contain;margin:15px auto;border-radius:10px;background:#f8f9fc}.status{padding:13px;background:#eff3ff;color:#304b91;border-radius:10px;margin-top:14px;line-height:1.5;overflow-wrap:anywhere}
+footer{text-align:center;color:#687385;font-size:13px;padding:20px}@media(max-width:450px){.card{padding:15px}.settings{gap:10px}.tab{font-size:14px}h2{font-size:21px}}
 </style>
 </head>
 <body>
-<header>
-  <h1>FORMVIXA</h1>
-  <p>Photo & Signature Resizer</p>
-</header>
-
+<header><h1>FORMVIXA</h1><p>Photo & Signature Resizer</p></header>
 <main>
-  <p class="intro">
-    Resize, crop and improve your photo or signature. Set the required pixel
-    dimensions and file size, then download your image. Processing happens locally
-    in your browser.
-  </p>
-
-  <div class="tabs">
-    <button class="tab active" id="photoTab" type="button">Photo Resize</button>
-    <button class="tab" id="signatureTab" type="button">Signature Resize</button>
-  </div>
-
-  <section class="card">
-    <h2 id="uploadHeading">1. Upload Photo</h2>
-    <label class="upload-box" for="imageInput">
-      <input class="file-input" id="imageInput" type="file" accept="image/jpeg,image/png,image/webp">
-      <span class="upload-icon" id="uploadIcon">⇧</span>
-      <strong id="uploadTitle">Tap here to upload your photo</strong>
-      <span>JPG, PNG or WebP · Maximum 20 MB</span>
-    </label>
-    <div id="uploadSuccess" class="success hidden">
-      <span class="tick">✓</span><span id="successText">Image uploaded successfully</span>
-    </div>
-    <div id="fileInfo" class="file-info">No image selected yet.</div>
-
-    <div id="cropSection" class="hidden">
-      <h3>2. Crop Image</h3>
-      <p class="note">Drag your finger or mouse over the image to select the area you want to keep. Everything outside the selected area will be removed after you apply the crop.</p>
-      <canvas id="cropCanvas" class="crop-canvas"></canvas>
-      <div class="crop-actions">
-        <button class="btn secondary" id="applyCrop" type="button">Apply Crop</button>
-        <button class="btn secondary" id="resetCrop" type="button">Reset Crop</button>
-      </div>
-      <p id="cropInfo" class="note">Select a crop area on the image.</p>
-    </div>
-
-    <h3>3. Image Adjustments</h3>
-    <p class="note">Move the sliders to improve your image. The adjustments will be included in your downloaded image.</p>
-
-    <div class="field">
-      <label for="brightness">Brightness <span class="slider-value" id="brightnessValue">100%</span></label>
-      <input id="brightness" type="range" min="0" max="200" value="100">
-    </div>
-    <div class="field">
-      <label for="contrast">Contrast <span class="slider-value" id="contrastValue">100%</span></label>
-      <input id="contrast" type="range" min="0" max="200" value="100">
-    </div>
-    <div class="field">
-      <label for="saturation">Saturation <span class="slider-value" id="saturationValue">100%</span></label>
-      <input id="saturation" type="range" min="0" max="200" value="100">
-    </div>
-    <div class="field">
-      <label for="sharpness">Sharpness <span class="slider-value" id="sharpnessValue">0</span></label>
-      <input id="sharpness" type="range" min="0" max="3" value="0" step="1">
-    </div>
-    <div class="field">
-      <label for="blur">Blur <span class="slider-value" id="blurValue">0 px</span></label>
-      <input id="blur" type="range" min="0" max="5" value="0" step="0.5">
-    </div>
-    <label class="check-row">
-      <input id="grayscale" type="checkbox">
-      <span>Black & White (Grayscale)</span>
-    </label>
-    <button class="btn secondary" id="resetAdjustments" type="button">Reset Adjustments</button>
-
-    <h3>4. Resize Settings</h3>
-    <div class="settings">
-      <div class="field">
-        <label for="widthInput">Width (pixels)</label>
-        <input id="widthInput" type="number" min="1" max="10000" value="200">
-      </div>
-      <div class="field">
-        <label for="heightInput">Height (pixels)</label>
-        <input id="heightInput" type="number" min="1" max="10000" value="230">
-      </div>
-      <div class="field">
-        <label for="sizeInput">Target File Size (KB)</label>
-        <input id="sizeInput" type="number" min="1" max="20480" value="50">
-      </div>
-      <div class="field">
-        <label for="formatInput">Output Format</label>
-        <select id="formatInput">
-          <option value="image/jpeg">JPG</option>
-          <option value="image/png">PNG</option>
-          <option value="image/webp">WebP</option>
-        </select>
-      </div>
-    </div>
-
-    <label class="check-row">
-      <input id="aspectInput" type="checkbox">
-      <span>Keep original aspect ratio (fit inside dimensions)</span>
-    </label>
-    <p class="note">Target file size is a maximum target. Exact size can vary. PNG files may not reach the requested size because PNG is lossless.</p>
-
-    <button class="btn primary" id="resizeButton" type="button">Resize Image</button>
-    <div id="status" class="status hidden" role="status" aria-live="polite"></div>
-  </section>
-
-  <section class="card">
-    <h2>5. Preview & Download</h2>
-    <p id="emptyPreview" class="note">Your resized image will appear here.</p>
-    <div id="resultSection" class="hidden">
-      <img id="resultImage" class="preview-image" alt="Resized image preview">
-      <div id="resultInfo" class="file-info"></div>
-      <button class="btn primary" id="downloadButton" type="button">Download Image</button>
-      <p class="note">On most phones, the file is saved to Downloads. To save it to Gallery or Photos, use your phone's available save or share options.</p>
-    </div>
-  </section>
-</main>
-
-<footer>© <span id="year"></span> FORMVIXA · Photo & Signature Resizer</footer>
-
+<p class="intro">Resize your photo or signature to your required pixel dimensions and file size. Crop and improve your image, then download the result. Your image is processed locally in your browser.</p>
+<div class="tabs"><button class="tab active" id="photoTab" type="button">Photo Resize</button><button class="tab" id="signatureTab" type="button">Signature Resize</button></div>
+<section class="card">
+<h2 id="uploadHeading">1. Upload Photo</h2>
+<label class="upload" for="imageInput"><span class="symbol" id="uploadSymbol">⇧</span><strong id="uploadTitle">Tap here to upload your photo</strong><small>JPG, PNG or WebP · Maximum 20 MB</small><input id="imageInput" type="file" accept="image/jpeg,image/png,image/webp"></label>
+<div id="successMessage" class="success hidden"><span class="tick">✓</span><span id="successText">Image uploaded successfully</span></div>
+<p id="fileInfo" class="file-info">No image selected yet.</p>
+<div id="editorArea" class="hidden">
+<h3>2. Crop Image</h3><p class="note">Drag on the image to select the area you want to keep. Only the selected area remains after applying the crop.</p>
+<canvas id="cropCanvas"></canvas><div class="crop-actions"><button class="btn secondary" id="applyCrop" type="button">Apply Crop</button><button class="btn secondary" id="resetCrop" type="button">Reset Crop</button></div><p id="cropInfo" class="note">Drag to select a crop area.</p>
+<h3>3. Image Adjustments</h3><p class="note">Adjust the sliders and the changes will be included in the downloaded image.</p>
+<div class="range-title"><label for="brightness">Brightness</label><output id="brightnessValue">100%</output></div><input id="brightness" type="range" min="0" max="200" value="100">
+<div class="range-title"><label for="contrast">Contrast</label><output id="contrastValue">100%</output></div><input id="contrast" type="range" min="0" max="200" value="100">
+<div class="range-title"><label for="saturation">Saturation</label><output id="saturationValue">100%</output></div><input id="saturation" type="range" min="0" max="200" value="100">
+<div class="range-title"><label for="sharpness">Sharpness</label><output id="sharpnessValue">0</output></div><input id="sharpness" type="range" min="0" max="3" step="1" value="0">
+<div class="range-title"><label for="blur">Blur</label><output id="blurValue">0 px</output></div><input id="blur" type="range" min="0" max="5" step=".5" value="0">
+<label class="check"><input id="grayscale" type="checkbox">Black & White (Grayscale)</label>
+<button class="btn secondary" id="resetAdjustments" type="button">Reset Adjustments</button>
+<h3>4. Resize Settings</h3>
+<div class="settings">
+<div class="field"><label for="widthInput">Width (pixels)</label><input id="widthInput" type="number" min="1" max="10000" value="200"></div>
+<div class="field"><label for="heightInput">Height (pixels)</label><input id="heightInput" type="number" min="1" max="10000" value="230"></div>
+<div class="field"><label for="sizeInput">Target Size (KB)</label><input id="sizeInput" type="number" min="1" max="20480" value="50"></div>
+<div class="field"><label for="formatInput">Output Format</label><select id="formatInput"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select></div>
+</div>
+<label class="check"><input id="aspectInput" type="checkbox">Keep original aspect ratio (fit inside dimensions)</label>
+<p class="note">Target size is a maximum. Exact size may vary. PNG files may not reach the requested size because PNG is lossless.</p>
+<button class="btn primary" id="resizeButton" type="button">Resize Image</button>
+<div id="status" class="status hidden" role="status" aria-live="polite"></div>
+</div></section>
+<section class="card"><h2>5. Preview & Download</h2><p id="emptyPreview" class="note">Upload an image to get started.</p><div id="resultArea" class="hidden"><img id="previewImage" alt="Resized image preview"><p id="resultInfo" class="file-info"></p><button class="btn primary" id="downloadButton" type="button">Download Image</button><p class="note">Most phones save downloads in the Downloads folder. Use your phone's save or share options to move the file to Gallery or Photos.</p></div></section>
+</main><footer>© FORMVIXA · Photo & Signature Resizer</footer>
 <script>
 "use strict";
-
-const $ = id => document.getElementById(id);
-
-const state = {
-  mode: "photo",
-  original: null,
-  originalName: "",
-  sourceWidth: 0,
-  sourceHeight: 0,
-  crop: null,
-  cropView: null,
-  dragging: false,
-  dragStart: null,
-  resultBlob: null,
-  resultUrl: null,
-  resultName: ""
-};
-
-$("year").textContent = new Date().getFullYear();
-
-function setStatus(message, error = false) {
-  const el = $("status");
-  el.textContent = message;
-  el.classList.remove("hidden");
-  el.style.background = error ? "#fff0f0" : "#f0f4ff";
-  el.style.color = error ? "#a32121" : "#334b8e";
-}
-function clearStatus() {
-  $("status").classList.add("hidden");
-}
-function clearResult() {
-  if (state.resultUrl) URL.revokeObjectURL(state.resultUrl);
-  state.resultUrl = null;
-  state.resultBlob = null;
-  $("resultSection").classList.add("hidden");
-  $("emptyPreview").classList.remove("hidden");
-}
-function resetAllAdjustments() {
-  $("brightness").value = 100;
-  $("contrast").value = 100;
-  $("saturation").value = 100;
-  $("sharpness").value = 0;
-  $("blur").value = 0;
-  $("grayscale").checked = false;
-  updateLabels();
-  if (state.original && !$("cropSection").classList.contains("hidden")) drawCropCanvas();
-}
-function getAdjustments() {
-  return {
-    brightness: Number($("brightness").value),
-    contrast: Number($("contrast").value),
-    saturation: Number($("saturation").value),
-    sharpness: Number($("sharpness").value),
-    blur: Number($("blur").value),
-    grayscale: $("grayscale").checked
-  };
-}
-function updateLabels() {
-  const a = getAdjustments();
-  $("brightnessValue").textContent = a.brightness + "%";
-  $("contrastValue").textContent = a.contrast + "%";
-  $("saturationValue").textContent = a.saturation + "%";
-  $("sharpnessValue").textContent = a.sharpness;
-  $("blurValue").textContent = a.blur + " px";
-}
-function filterString() {
-  const a = getAdjustments();
-  return brightness(${a.brightness}%) contrast(${a.contrast}%) saturate(${a.saturation}%) grayscale(${a.grayscale ? 100 : 0}%) blur(${a.blur}px);
-}
-function updateMode(mode) {
-  state.mode = mode;
-  $("photoTab").classList.toggle("active", mode === "photo");
-  $("signatureTab").classList.toggle("active", mode === "signature");
-  $("uploadHeading").textContent = mode === "photo" ? "1. Upload Photo" : "1. Upload Signature";
-  $("uploadTitle").textContent = mode === "photo" ? "Tap here to upload your photo" : "Tap here to upload your signature";
-  $("uploadIcon").textContent = mode === "photo" ? "⇧" : "✍️";
-  $("imageInput").value = "";
-  $("uploadSuccess").classList.add("hidden");
-  $("fileInfo").textContent = "No image selected yet.";
-  $("cropSection").classList.add("hidden");
-  state.original = null;
-  state.crop = null;
-  resetAllAdjustments();
-  clearResult();
-  clearStatus();
-}
-$("photoTab").addEventListener("click", () => updateMode("photo"));
-$("signatureTab").addEventListener("click", () => updateMode("signature"));
-
-$("imageInput").addEventListener("change", event => {
-  const file = event.target.files && event.target.files[0];
-  if (!file) return;
-  clearStatus();
-
-  if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
-    setStatus("Please select a JPG, PNG or WebP image.", true);
-    event.target.value = "";
-    return;
-  }
-  if (file.size > 20 * 1024 * 1024) {
-    setStatus("The file exceeds 20 MB. Please select a smaller image.", true);
-    event.target.value = "";
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onerror = () => setStatus("Could not read this file. Please try again.", true);
-  reader.onload = () => {
-    const img = new Image();
-    img.onerror = () => setStatus("Could not open this image. Try another file.", true);
-    img.onload = () => {
-      state.original = img;
-      state.originalName = file.name;
-      state.sourceWidth = img.naturalWidth;
-      state.sourceHeight = img.naturalHeight;
-      state.crop = {x:0,y:0,width:img.naturalWidth,height:img.naturalHeight};
-
-      $("widthInput").value = img.naturalWidth;
-      $("heightInput").value = img.naturalHeight;
-      $("uploadSuccess").classList.remove("hidden");
-      $("successText").textContent = state.mode === "photo" ? "Photo uploaded successfully" : "Signature uploaded successfully";
-      $("fileInfo").textContent = Selected: ${file.name} · ${img.naturalWidth} × ${img.naturalHeight} px · ${(file.size/1024).toFixed(1)} KB;
-
-      resetAllAdjustments();
-      clearResult();
-      $("cropSection").classList.remove("hidden");
-      drawCropCanvas();
-      setStatus("Upload complete. Adjust your image or select a crop area.");
-    };
-    img.src = reader.result;
-  };
-  reader.readAsDataURL(file);
+const $=id=>document.getElementById(id);
+const S={mode:"photo",image:null,name:"",w:0,h:0,crop:null,scale:null,drag:false,start:null,blob:null,url:null,outName:""};
+function msg(t,err=false){$("status").textContent=t;$("status").classList.remove("hidden");$("status").style.background=err?"#fff0f0":"#eff3ff";$("status").style.color=err?"#a32121":"#304b91"}
+function clearMsg(){$("status").classList.add("hidden")}
+function clearResult(){if(S.url)URL.revokeObjectURL(S.url);S.url=null;S.blob=null;$("resultArea").classList.add("hidden");$("emptyPreview").classList.remove("hidden")}
+function adj(){return{b:+$("brightness").value,c:+$("contrast").value,s:+$("saturation").value,sharp:+$("sharpness").value,blur:+$("blur").value,gray:$("grayscale").checked}}
+function filter(){let a=adj();return`brightness(${a.b}%) contrast(${a.c}%) saturate(${a.s}%) grayscale(${a.gray?100:0}%) blur(${a.blur}px)`}
+function labels(){$("brightnessValue").textContent=$("brightness").value+"%";$("contrastValue").textContent=$("contrast").value+"%";$("saturationValue").textContent=$("saturation").value+"%";$("sharpnessValue").textContent=$("sharpness").value;$("blurValue").textContent=$("blur").value+" px"}
+function resetAdj(){ $("brightness").value=100;$("contrast").value=100;$("saturation").value=100;$("sharpness").value=0;$("blur").value=0;$("grayscale").checked=false;labels();if(S.image)drawCrop()}
+function mode(m){S.mode=m; $("photoTab").classList.toggle("active",m==="photo");$("signatureTab").classList.toggle("active",m==="signature");$("uploadHeading").textContent=m==="photo"?"1. Upload Photo":"1. Upload Signature";$("uploadTitle").textContent=m==="photo"?"Tap here to upload your photo":"Tap here to upload your signature";$("uploadSymbol").textContent=m==="photo"?"⇧":"✍️";$("imageInput").value="";S.image=null;S.crop=null;$("editorArea").classList.add("hidden");$("successMessage").classList.add("hidden");$("fileInfo").textContent="No image selected yet.";clearResult();clearMsg()}
+$("photoTab").addEventListener("click",()=>mode("photo"));$("signatureTab").addEventListener("click",()=>mode("signature"));
+$("imageInput").addEventListener("change",e=>{
+ const f=e.target.files&&e.target.files[0];if(!f)return;clearMsg();
+ if(!["image/jpeg","image/png","image/webp"].includes(f.type)){msg("Please select a JPG, PNG or WebP image.",true);e.target.value="";return}
+ if(f.size>20*1024*1024){msg("The file exceeds 20 MB. Please select a smaller image.",true);e.target.value="";return}
+ const r=new FileReader();r.onerror=()=>msg("Could not read the file. Please try again.",true);
+ r.onload=()=>{const im=new Image();im.onerror=()=>msg("Could not open this image.",true);im.onload=()=>{
+ S.image=im;S.name=f.name;S.w=im.naturalWidth;S.h=im.naturalHeight;S.crop={x:0,y:0,width:S.w,height:S.h};
+ $("widthInput").value=S.w;$("heightInput").value=S.h;$("successMessage").classList.remove("hidden");$("successText").textContent=S.mode==="photo"?"Photo uploaded successfully":"Signature uploaded successfully";
+ $("fileInfo").textContent=Selected: ${f.name} · ${S.w} × ${S.h} px · ${(f.size/1024).toFixed(1)} KB;
+ $("editorArea").classList.remove("hidden");resetAdj();clearResult();drawCrop();msg("Upload complete. You can now crop, adjust and resize your image.");
+ };im.src=r.result};r.readAsDataURL(f)
 });
-
-function drawCropCanvas() {
-  if (!state.original) return;
-  const canvas = $("cropCanvas");
-  const maxW = Math.max(160, Math.min(620, $("cropSection").clientWidth - 10));
-  const maxH = 360;
-  const scale = Math.min(maxW/state.sourceWidth, maxH/state.sourceHeight, 1);
-  const w = Math.max(1, Math.round(state.sourceWidth*scale));
-  const h = Math.max(1, Math.round(state.sourceHeight*scale));
-  canvas.width = w;
-  canvas.height = h;
-  canvas.style.width = w + "px";
-  canvas.style.height = h + "px";
-  state.cropView = {sx:state.sourceWidth/w, sy:state.sourceHeight/h};
-
-  const ctx = canvas.getContext("2d");
-  ctx.clearRect(0,0,w,h);
-  ctx.save();
-  ctx.filter = filterString();
-  ctx.drawImage(state.original,0,0,w,h);
-  ctx.restore();
-
-  if (state.crop) {
-    const c = state.crop;
-    const x = c.x/state.cropView.sx, y = c.y/state.cropView.sy;
-    const cw = c.width/state.cropView.sx, ch = c.height/state.cropView.sy;
-    ctx.save();
-    ctx.fillStyle = "rgba(0,0,0,.55)";
-    ctx.fillRect(0,0,w,h);
-    ctx.clearRect(x,y,cw,ch);
-    ctx.save();
-    ctx.beginPath();
-    ctx.rect(x,y,cw,ch);
-    ctx.clip();
-    ctx.filter = filterString();
-    ctx.drawImage(state.original,0,0,w,h);
-    ctx.restore();
-    ctx.strokeStyle = "#fff";
-    ctx.lineWidth = 2;
-    ctx.setLineDash([6,3]);
-    ctx.strokeRect(x,y,cw,ch);
-    ctx.restore();
-  }
+function drawCrop(){
+ if(!S.image)return;let can=$("cropCanvas"),max=Math.max(180,Math.min(620,$("editorArea").clientWidth-12)),sc=Math.min(max/S.w,360/S.h,1),w=Math.max(1,Math.round(S.w*sc)),h=Math.max(1,Math.round(S.h*sc));
+ can.width=w;can.height=h;can.style.width=w+"px";can.style.height=h+"px";S.scale={x:S.w/w,y:S.h/h};
+ let c=can.getContext("2d");c.clearRect(0,0,w,h);c.save();c.filter=filter();c.drawImage(S.image,0,0,w,h);c.restore();
+ if(S.crop){let q=S.crop,x=q.x/S.scale.x,y=q.y/S.scale.y,cw=q.width/S.scale.x,ch=q.height/S.scale.y;c.save();c.fillStyle="rgba(0,0,0,.52)";c.fillRect(0,0,w,h);c.clearRect(x,y,cw,ch);c.save();c.beginPath();c.rect(x,y,cw,ch);c.clip();c.filter=filter();c.drawImage(S.image,0,0,w,h);c.restore();c.strokeStyle="#fff";c.lineWidth=2;c.setLineDash([6,3]);c.strokeRect(x,y,cw,ch);c.restore()}
 }
-function pointOnCanvas(event) {
-  const rect = $("cropCanvas").getBoundingClientRect();
-  return {
-    x:Math.max(0,Math.min(rect.width,event.clientX-rect.left)),
-    y:Math.max(0,Math.min(rect.height,event.clientY-rect.top))
-  };
+function pt(e){let r=$("cropCanvas").getBoundingClientRect();return{x:Math.max(0,Math.min(r.width,e.clientX-r.left)),y:Math.max(0,Math.min(r.height,e.clientY-r.top))}}
+$("cropCanvas").addEventListener("pointerdown",e=>{if(!S.image||!S.scale)return;e.preventDefault();S.drag=true;S.start=pt(e);$("cropCanvas").setPointerCapture(e.pointerId)});
+$("cropCanvas").addEventListener("pointermove",e=>{if(!S.drag||!S.start||!S.scale)return;let p=pt(e),l=Math.min(p.x,S.start.x),t=Math.min(p.y,S.start.y),r=Math.max(p.x,S.start.x),b=Math.max(p.y,S.start.y);S.crop={x:Math.round(l*S.scale.x),y:Math.round(t*S.scale.y),width:Math.max(1,Math.round((r-l)*S.scale.x)),height:Math.max(1,Math.round((b-t)*S.scale.y))};drawCrop()});
+function stopDrag(){S.drag=false;S.start=null}
+$("cropCanvas").addEventListener("pointerup",stopDrag);$("cropCanvas").addEventListener("pointercancel",stopDrag);
+$("applyCrop").addEventListener("click",()=>{
+ if(!S.image||!S.crop||S.crop.width<2||S.crop.height<2){msg("Drag over the image to select a crop area first.",true);return}
+ let q=S.crop,c=document.createElement("canvas");c.width=q.width;c.height=q.height;let x=c.getContext("2d");x.filter=filter();x.drawImage(S.image,q.x,q.y,q.width,q.height,0,0,q.width,q.height);
+ c.toBlob(b=>{if(!b){msg("Could not apply crop.",true);return}let u=URL.createObjectURL(b),im=new Image();im.onload=()=>{URL.revokeObjectURL(u);S.image=im;S.w=q.width;S.h=q.height;S.crop={x:0,y:0,width:S.w,height:S.h};$("widthInput").value=S.w;$("heightInput").value=S.h;$("cropInfo").textContent=Crop applied: ${S.w} × ${S.h} px. Only the selected area remains.;clearResult();drawCrop();msg("Crop applied successfully.")};im.onerror=()=>{URL.revokeObjectURL(u);msg("Could not load cropped image.",true)};im.src=u},"image/png")
+});
+$("resetCrop").addEventListener("click",()=>{if(!S.image)return;S.crop={x:0,y:0,width:S.w,height:S.h};$("cropInfo").textContent="Crop selection reset to the full image.";drawCrop();msg("Crop selection reset.")});
+["brightness","contrast","saturation","sharpness","blur","grayscale"].forEach(id=>$(id).addEventListener("input",()=>{labels();if(S.image)drawCrop()}));
+$("resetAdjustments").addEventListener("click",()=>{resetAdj();msg("Adjustments reset to their default values.")});
+function makeCanvas(){
+ let w=Number($("widthInput").value),h=Number($("heightInput").value);if(!Number.isInteger(w)||!Number.isInteger(h)||w<1||h<1||w>10000||h>10000)throw Error("Width and height must be between 1 and 10000 pixels.");
+ let q=S.crop||{x:0,y:0,width:S.w,height:S.h};if($("aspectInput").checked){let z=Math.min(w/q.width,h/q.height);w=Math.max(1,Math.round(q.width*z));h=Math.max(1,Math.round(q.height*z))}
+ if(w*h>40000000)throw Error("Requested image is too large. Please use smaller dimensions.");
+ let c=document.createElement("canvas");c.width=w;c.height=h;let x=c.getContext("2d"),type=$("formatInput").value;if(type==="image/jpeg"){x.fillStyle="#fff";x.fillRect(0,0,w,h)}x.imageSmoothingEnabled=true;x.imageSmoothingQuality="high";x.filter=filter();x.drawImage(S.image,q.x,q.y,q.width,q.height,0,0,w,h);x.filter="none";
+ let a=adj();if(a.sharp>0&&w>2&&h>2){let d=x.getImageData(0,0,w,h),src=d.data,out=new Uint8ClampedArray(src),amt=a.sharp*.3;for(let y=1;y<h-1;y++)for(let xx=1;xx<w-1;xx++){let i=(y*w+xx)4;for(let k=0;k<3;k++){let v=src[i+k],n=src[i-4+k]+src[i+4+k]+src[i-w*4+k]+src[i+w*4+k];out[i+k]=v+amt(4*v-n)}}d.data.set(out);x.putImageData(d,0,0)}return c
 }
-$("cropCanvas").addEventListener("pointerdown", event => {
-  if (!state.original || !state.cropView) return;
-  event.preventDefault();
-  state.dragging = true;
-  state.dragStart = pointOnCanvas(event);
-  state.crop = {x:0,y:0,width:state.sourceWidth,height:state.sourceHeight};
-  $("cropCanvas").setPointerCapture(event.pointerId);
-});
-$("cropCanvas").addEventListener("pointermove", event => {
-  if (!state.dragging || !state.dragStart || !state.cropView) return;
-  const p = pointOnCanvas(event);
-  const left = Math.min(state.dragStart.x,p.x);
-  const top = Math.min(state.dragStart.y,p.y);
-  const right = Math.max(state.dragStart.x,p.x);
-  const bottom = Math.max(state.dragStart.y,p.y);
-  state.crop = {
-    x:Math.round(left*state.cropView.sx),
-    y:Math.round(top*state.cropView.sy),
-    width:Math.max(1,Math.round((right-left)*state.cropView.sx)),
-    height:Math.max(1,Math.round((bottom-top)*state.cropView.sy))
-  };
-  drawCropCanvas();
-});
-function stopCropDrag(){state.dragging=false;state.dragStart=null;}
-$("cropCanvas").addEventListener("pointerup",stopCropDrag);
-$("cropCanvas").addEventListener("pointercancel",stopCropDrag);
-
-$("applyCrop").addEventListener("click", () => {
-  if (!state.original || !state.crop || state.crop.width < 2 || state.crop.height < 2) {
-    setStatus("Drag over the image to select a crop area first.",true);
-    return;
-  }
-  const c = state.crop;
-  const canvas = document.createElement("canvas");
-  canvas.width = c.width;
-  canvas.height = c.height;
-  const ctx = canvas.getContext("2d");
-  ctx.filter = filterString();
-  ctx.drawImage(state.original,c.x,c.y,c.width,c.height,0,0,c.width,c.height);
-
-  canvas.toBlob(blob => {
-    if (!blob) {
-      setStatus("Could not apply crop. Please try again.",true);
-      return;
-    }
-    const url = URL.createObjectURL(blob);
-    const cropped = new Image();
-    cropped.onload = () => {
-      URL.revokeObjectURL(url);
-      state.original = cropped;
-      state.sourceWidth = c.width;
-      state.sourceHeight = c.height;
-      state.crop = {x:0,y:0,width:c.width,height:c.height};
-      $("widthInput").value = c.width;
-      $("heightInput").value = c.height;
-      clearResult();
-      drawCropCanvas();
-      $("cropInfo").textContent = Crop applied: ${c.width} × ${c.height} px. Only the selected area remains.;
-      setStatus("Crop applied successfully.");
-    };
-    cropped.onerror = () => {
-      URL.revokeObjectURL(url);
-      setStatus("Could not load the cropped image.",true);
-    };
-    cropped.src = url;
-  },"image/png");
-});
-
-$("resetCrop").addEventListener("click", () => {
-  if (!state.original) return;
-  state.crop = {x:0,y:0,width:state.sourceWidth,height:state.sourceHeight};
-  drawCropCanvas();
-  $("cropInfo").textContent = "Full current image selected.";
-  setStatus("Crop selection reset.");
-});
-
-["brightness","contrast","saturation","sharpness","blur","grayscale"].forEach(id => {
-  $(id).addEventListener("input", () => {
-    updateLabels();
-    if (state.original) drawCropCanvas();
-  });
-});
-$("resetAdjustments").addEventListener("click", () => {
-  resetAllAdjustments();
-  setStatus("Adjustments reset to their default values.");
-});
-
-function makeOutputCanvas() {
-  let width = Number($("widthInput").value);
-  let height = Number($("heightInput").value);
-  if (!Number.isInteger(width) || !Number.isInteger(height) ||
-      width<1 || height<1 || width>10000 || height>10000) {
-    throw new Error("Width and height must be between 1 and 10000 pixels.");
-  }
-
-  const c = state.crop || {x:0,y:0,width:state.sourceWidth,height:state.sourceHeight};
-  if ($("aspectInput").checked) {
-    const scale = Math.min(width/c.width,height/c.height);
-    width = Math.max(1,Math.round(c.width*scale));
-    height = Math.max(1,Math.round(c.height*scale));
-  }
-
-  const canvas = document.createElement("canvas");
-  canvas.width = width;
-  canvas.height = height;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("Your browser does not support image processing.");
-
-  const type = $("formatInput").value;
-  if (type === "image/jpeg") {
-    ctx.fillStyle = "#fff";
-    ctx.fillRect(0,0,width,height);
-  }
-  ctx.imageSmoothingEnabled = true;
-  ctx.imageSmoothingQuality = "high";
-
-  const a = getAdjustments();
-  ctx.save();
-  ctx.filter = brightness(${a.brightness}%) contrast(${a.contrast}%) saturate(${a.saturation}%) grayscale(${a.grayscale?100:0}%) blur(${a.blur}px);
-  
-ctx.drawImage(state.original,c.x,c.y,c.width,c.height,0,0,width,height);
-  ctx.restore();
-
-  // Apply a simple sharpening convolution when requested.
-  if (a.sharpness > 0) {
-    const imageData = ctx.getImageData(0,0,width,height);
-    const src = imageData.data;
-    const out = new Uint8ClampedArray(src);
-    const amount = a.sharpness * 0.35;
-
-    for (let y=1;y<height-1;y++) {
-      for (let x=1;x<width-1;x++) {
-        const i=(y*width+x)*4;
-        for (let ch=0;ch<3;ch++) {
-          const center=src[i+ch];
-          const neighbors=
-            src[i-4+ch]+src[i+4+ch]+
-            src[i-width*4+ch]+src[i+width*4+ch];
-          out[i+ch]=center+amount*(4*center-neighbors);
-        }
-      }
-    }
-    imageData.data.set(out);
-    ctx.putImageData(imageData,0,0);
-  }
-  return canvas;
+function blobOf(c,t,q){return new Promise((resolve,reject)=>c.toBlob(b=>b?resolve(b):reject(Error("Could not create output image.")),t,q))}
+async function compress(c,t,kb){
+ if(!Number.isFinite(kb)||kb<1||kb>20480)throw Error("Target size must be between 1 and 20480 KB.");let target=kb*1024;
+ if(t==="image/png"){let b=await blobOf(c,t);return{blob:b,reached:b.size<=target}}
+ let lo=.04,hi=.96,best=null;for(let i=0;i<12;i++){let q=(lo+hi)/2,b=await blobOf(c,t,q);if(b.size<=target&&(!best||b.size>best.size))best=b;if(b.size>target)hi=q;else lo=q}
+ if(!best)best=await blobOf(c,t,.04);return{blob:best,reached:best.size<=target}
 }
-
-function toBlob(canvas,type,quality) {
-  return new Promise((resolve,reject) => {
-    canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error("Could not create output image.")),type,quality);
-  });
-}
-async function compressImage(canvas,type,targetKB) {
-  if (!Number.isFinite(targetKB)||targetKB<1||targetKB>20480) {
-    throw new Error("Target file size must be between 1 and 20480 KB.");
-  }
-  const target = targetKB*1024;
-  if (type==="image/png") {
-    const blob=await toBlob(canvas,type);
-    return
-{blob,reached:blob.size<=target};
-  }
-
-  let low=0.04,high=0.96,best=null;
-  for(let i=0;i<12;i++){
-    const q=(low+high)/2;
-    const blob=await toBlob(canvas,type,q);
-    if(blob.size<=target && (!best||blob.size>best.size)) best=blob;
-    if(blob.size>target) high=q;
-    else low=q;
-  }
-  if(!best) best=await toBlob(canvas,type,0.04);
-  return {blob:best,reached:best.size<=target};
-}
-
 $("resizeButton").addEventListener("click",async()=>{
-  clearStatus();
-  if(!state.original){
-    setStatus("Please upload a photo or signature first.",true);
-    return;
-  }
-
-  $("resizeButton").disabled=true;
-  $("resizeButton").textContent="Processing...";
-  try{
-    const canvas=makeOutputCanvas();
-    const result=await compressImage(canvas,$("formatInput").value,Number($("sizeInput").value));
-    clearResult();
-    state.resultBlob=result.blob;
-    state.resultUrl=URL.createObjectURL(result.blob);
-
-    const ext=$("formatInput").value==="image/png"?"png":$("formatInput").value==="image/webp"?"webp":"jpg";
-    const base=(state.originalName||"formvixa").replace(/\.[^.]+$/,"");
-    state.resultName=base+"-resized."+ext;
-
-    $("resultImage").src=state.resultUrl;
-    $("resultInfo").textContent=${canvas.width} × ${canvas.height} px · ${(result.blob.size/1024).toFixed(1)} KB · ${ext.toUpperCase()};
-
-$("resultSection").classList.remove("hidden");
-    $("emptyPreview").classList.add("hidden");
-
-    setStatus(result.reached
-      ?"Image resized successfully. You can now download it."
-      :"Image created, but the target size could not be reached. Try smaller dimensions or another format.");
-  }catch(error){
-    setStatus(error.message||"Could not resize this image.",true);
-  }finally{
-    $("resizeButton").disabled=false;
-    $("resizeButton").textContent="Resize Image";
-  }
+ clearMsg();if(!S.image){msg("Please upload a photo or signature first.",true);return}
+ $("resizeButton").disabled=true;$("resizeButton").textContent="Processing...";
+ try{let c=makeCanvas(),r=await compress(c,$("formatInput").value,Number($("sizeInput").value));clearResult();S.blob=r.blob;S.url=URL.createObjectURL(r.blob);
+ let ext=$("formatInput").value==="image/png"?"png":$("formatInput").value==="image/webp"?"webp":"jpg";S.outName=(S.name||"formvixa").replace(/\.[^.]+$/,"")+"-resized."+ext;
+ $("previewImage").src=S.url;$("resultInfo").textContent=${c.width} × ${c.height} px · ${(r.blob.size/1024).toFixed(1)} KB · ${ext.toUpperCase()};$("resultArea").classList.remove("hidden");$("emptyPreview").classList.add("hidden");
+ msg(r.reached?"Image resized successfully. You can now download it.":"Image created, but the target size could not be reached. Try smaller dimensions or another format.")
+ }catch(e){msg(e.message||"Could not resize image.",true)}finally{$("resizeButton").disabled=false;$("resizeButton").textContent="Resize Image"}
 });
-
 $("downloadButton").addEventListener("click",async()=>{
-  if(!state.resultBlob||!state.resultUrl){
-    setStatus("Please resize the image first.",true);
-    return;
-  }
-
-  const file=new File([state.resultBlob],state.resultName,{type:state.resultBlob.type});
-  try{
-    if(navigator.canShare&&navigator.share&&navigator.canShare({files:[file]})){
-      await navigator.share({files:[file],title:"FORMVIXA Resized Image"});
-      setStatus("Share menu opened. Choose a save option if available.");
-      return;
-    }
-  }catch(error){
-    if(error.name==="AbortError") return;
-  }
-
-  const link=document.createElement("a");
-  link.href=state.resultUrl;
-  link.download=state.resultName;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  setStatus("Download started. Check your Downloads folder.");
+ if(!S.blob||!S.url){msg("Please resize the image first.",true);return}
+ let f=new File([S.blob],S.outName,{type:S.blob.type});
+ try{if(navigator.canShare&&navigator.share&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:"FORMVIXA Resized Image"});msg("Share menu opened. Choose a save option if available.");return}}catch(e){if(e.name==="AbortError")return}
+ let a=document.createElement("a");a.href=S.url;a.download=S.outName;document.body.appendChild(a);a.click();a.remove();msg("Download started. Check your Downloads folder.")
 });
-
-window.addEventListener("beforeunload",()=>{
-  if(state.resultUrl) URL.revokeObjectURL(state.resultUrl);
-});
+window.addEventListener("resize",()=>{if(S.image)drawCrop()});
+window.addEventListener("beforeunload",()=>{if(S.url)URL.revokeObjectURL(S.url)});
+labels();
 </script>
 </body>
 </html>
